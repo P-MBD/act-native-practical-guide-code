@@ -7,10 +7,18 @@ function CategoryGridTile() {
       <FlatList 
                 data={CATEGORIES}
                 renderItem={({item,key})=>
+                <Pressable
+                android_ripple={{ color: '#ccc' }}
+                style={({ pressed }) => [
+                  styles.button,
+                  pressed ? styles.buttonPressed : null,
+                ]}
+                >
                              <View style={[styles.innerContainer,{backgroundColor:item.color}]}>
                                       <Text style={styles.title}>{item.title}</Text>
                               </View>
-
+                
+          </Pressable>
                 }
                 keyExtractor={item=>item.id}
                 numColumns={2}
