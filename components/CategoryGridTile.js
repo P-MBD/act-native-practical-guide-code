@@ -1,9 +1,10 @@
 import { FlatList,Pressable, View, Text, StyleSheet, Platform } from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
+import { useNavigation } from '@react-navigation/native';
 
-function CategoryGridTile() {
+function CategoryGridTile({navigation}) {
+  const {navigate} = useNavigation();
   return (   
-      
       <FlatList 
                 data={CATEGORIES}
                 renderItem={({item,key})=>
@@ -13,6 +14,7 @@ function CategoryGridTile() {
                   styles.button,
                   pressed ? styles.buttonPressed : null,
                 ]}
+                onPress={()=>navigate('MealsOverview')}
                 >
                              <View style={[styles.innerContainer,{backgroundColor:item.color}]}>
                                       <Text style={styles.title}>{item.title}</Text>
