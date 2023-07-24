@@ -14,7 +14,7 @@ function CategoryGridTile({navigation}) {
                   styles.button,
                   pressed ? styles.buttonPressed : null,
                 ]}
-                onPress={()=>navigate('MealsOverview')}
+                onPress={()=>navigate('MealsOverview',{categoryId:item.id})}
                 >
                              <View style={[styles.innerContainer,{backgroundColor:item.color}]}>
                                       <Text style={styles.title}>{item.title}</Text>
