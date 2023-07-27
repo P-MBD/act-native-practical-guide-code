@@ -33,4 +33,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     fontSize: 12,
   },
+
+  
 });
