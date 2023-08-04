@@ -1,15 +1,20 @@
 import { useContext, useLayoutEffect } from 'react';
+import {useDispatch, useSelector } from 'react-redux';
 import { View, Text, Image, StyleSheet, ScrollView,Button } from 'react-native';
 import IconButton from '../components/IconButton';
 import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
 import MealDetails from '../components/MealDetails';
 import { MEALS } from '../data/dummy-data';
-import { FavoritesContext } from '../store/context/favorites-context';
+//import { FavoritesContext } from '../store/context/favorites-context';
+import {addFavorite, removeFavorite} from '../store/redux/favorites';
 
 function MealDetailScreen({ route, navigation }) {
-  const favoriteMealsCtx = useContext(FavoritesContext);
-  console.log(favoriteMealsCtx)
+  //const favoriteMealsCtx = useContext(FavoritesContext);
+  //console.log(favoriteMealsCtx)
+
+const favoriteMealIds = useSelector((state)=> state.favoriteMeals.ids);
+const dispatch = useDispatch();
 
   const {mealId} = route?.params||{};
   console.log({mealId})
@@ -18,18 +23,20 @@ function MealDetailScreen({ route, navigation }) {
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
-  console.log(favoriteMealsCtx.ids,'favoriteMealsCtx.ids') 
+  const mealIsFavorite = favoriteMealIds.includes(mealId);
+  console.log( mealIsFavorite,' mealIsFavorite') 
  
 
   function changeFavoriteStatusHandler() {
     if (mealIsFavorite) {
-      console.log('remove Favorite')
-      favoriteMealsCtx.removeFavorite(mealId); 
+     // console.log('remove Favorite')
+      //favoriteMealsCtx.removeFavorite(mealId); 
+      dispatch(removeFavorite({id:mealId}));
     } else {
-      console.log('add Favorite')
-      console.log(mealId,'mealId') 
-      favoriteMealsCtx.addFavorite(mealId);
+     // console.log('add Favorite')
+    //  console.log(mealId,'mealId') 
+     // favoriteMealsCtx.addFavorite(mealId);
+     dispatch(addFavorite({id:mealId}));
       
     }
   }
